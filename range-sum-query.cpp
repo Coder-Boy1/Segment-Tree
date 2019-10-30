@@ -2,7 +2,7 @@
 using namespace std;
 #define endl '\n'
 //function to build the segment tree
-void buildTree(int *tree,int *a,int index,int s,int e)
+void buildTree(long long *tree,int *a,int index,int s,int e)
 {
 	//base case
 	if(s>e)
@@ -22,7 +22,7 @@ void buildTree(int *tree,int *a,int index,int s,int e)
 }
 
 //function to query the segment tree for RSQ
-int query(int *tree,int index,int s,int e,int qs,int qe)
+long long query(long long *tree,int index,int s,int e,int qs,int qe)
 {
 	//base case: if query range is outside the node range
 	if(qs>e || s>qe)
@@ -32,13 +32,13 @@ int query(int *tree,int index,int s,int e,int qs,int qe)
 		return tree[index];
 	//now partial overlap case is executed
 	int m = (s+e)/2;
-	int left_ans = query(tree,2*index,s,m,qs,qe);
-	int right_ans = query(tree,2*index+1,m+1,e,qs,qe);
+	long long left_ans = query(tree,2*index,s,m,qs,qe);
+	long long right_ans = query(tree,2*index+1,m+1,e,qs,qe);
 	return left_ans+right_ans;
 }
 
 //function to update a value at position to "pos"
-void updateNode(int *tree,int index,int s,int e,int pos,int val)
+void updateNode(long long *tree,int index,int s,int e,int pos,int val)
 {
 	if(pos<s || pos>e)
 		return ;
@@ -55,7 +55,7 @@ void updateNode(int *tree,int index,int s,int e,int pos,int val)
 }
 
 //function to update the values in a range
-void updateRange(int *tree,int index,int s,int e,int rs,int re,int inc)
+void updateRange(long long *tree,int index,int s,int e,int rs,int re,int inc)
 {
 	//query range outside the node range
 	if(s>re || e<rs)
@@ -78,7 +78,7 @@ int main()
     cin.tie(NULL);
     int a[] ={1,3,2,-2,4,5};										 //input array	
     int n =6;														//size of input array
-    int *tree = new int[4*n+1];                                    //array to store the segment tree
+    long long *tree = new int[4*n+1];                                    //array to store the segment tree
     int index = 1;													//index of 1st node
     int s =0,e=n-1;
     buildTree(tree,a,index,s,e);									//now tree has been built
